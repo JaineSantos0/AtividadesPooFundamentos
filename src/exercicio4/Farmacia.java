@@ -1,22 +1,33 @@
 package exercicio4;
 
-public class Farmacia {
+public abstract class Farmacia {
 
+    private Long id;
     private String nome;
+    private String nomeComercial;
     private String categoria;
-    private String codigoInterno;
-    private Integer quantidade;
     private Double preco;
+
+    private Integer tipo;
 
     public Farmacia() {
     }
 
-    public Farmacia(String nome, String categoria, String codigoInterno, Integer quantidade, Double preco) {
+    public Farmacia(Long id, String nome, String nomeComercial, String categoria, Double preco, Integer tipo) {
+        this.id = id;
         this.nome = nome;
         this.categoria = categoria;
-        this.codigoInterno = codigoInterno;
-        this.quantidade = quantidade;
+        this.nomeComercial = nomeComercial;
         this.preco = preco;
+        this.tipo = tipo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -27,28 +38,20 @@ public class Farmacia {
         this.nome = nome;
     }
 
+    public String getNomeComercial() {
+        return nomeComercial;
+    }
+
+    public void setNomeComercial(String nomeComercial) {
+        this.nomeComercial = nomeComercial;
+    }
+
     public String getCategoria() {
         return categoria;
     }
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
-    }
-
-    public String getCodigoInterno() {
-        return codigoInterno;
-    }
-
-    public void setCodigoInterno(String codigoInterno) {
-        this.codigoInterno = codigoInterno;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public Double getPreco() {
@@ -59,8 +62,23 @@ public class Farmacia {
         this.preco = preco;
     }
 
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public abstract void reajuste(float percentual);
+
     public void visualizar() {
-        System.out.println(nome + ", " + categoria + ", Cod ean " + codigoInterno
-        + ", " + quantidade + "unid, " + String.format("%.2f",preco));
+        String tipo = "";
+
+        switch (this.tipo){
+            case 1 -> System.out.println("Medicamento");
+            case 2 -> System.out.println("Perfumaria");
+        }
+        System.out.println(id + ", " + nome + ", " + nomeComercial + ", " + categoria + ", " + String.format("%.2f",preco) + ", " + tipo);
     }
 }

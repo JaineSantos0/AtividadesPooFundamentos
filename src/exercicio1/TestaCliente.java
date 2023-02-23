@@ -1,16 +1,65 @@
 package exercicio1;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class TestaCliente {
 
     public static void main(String[] args) {
 
-        Cliente cliente1 = new Cliente("Ana", "(12)991567799", "345.789.333-65",
-                "ana@gmail.com", "R das Carmálias 55 Flores");
+        Scanner sc = new Scanner(System.in);
 
-        Cliente cliente2 = new Cliente("Oscar", "(11)992766654", "567.896.444-32",
-                "oscar@gmail.com", "R Padre Antônio Feijó 3 Jardim Satélite");
+        List<Cliente> clienteList = new ArrayList<>();
 
-        cliente1.visualizar();
-        cliente2.visualizar();
+        String cpf,cnpj,resposta;
+        do {
+            System.out.println("Nome: ");
+            sc.skip("\\R?");
+            String nome = sc.nextLine();
+
+            System.out.println("Telefone: ");
+            sc.skip("\\R?");
+            String telefone = sc.nextLine();
+
+            System.out.println("Idade: ");
+            sc.skip("\\R?");
+            Integer idade = sc.nextInt();
+
+            System.out.println("Email: ");
+            sc.skip("\\R?");
+            String email = sc.nextLine();
+
+            System.out.println("Endereço: ");
+            sc.skip("\\R?");
+            String endereco = sc.nextLine();
+
+            System.out.println("Tipo: ");
+            int tipo = sc.nextInt();
+
+            switch (tipo){
+                case 1 ->{
+                    System.out.println("CPF: ");
+                    sc.skip("\\R?");
+                    cpf = sc.nextLine();
+                    clienteList.add(new PessoaFisica(nome, telefone, idade, email, endereco, tipo, cpf));
+                }
+                case 2 ->{
+                    System.out.println("CNPJ: ");
+                    sc.skip("\\R?");
+                    cnpj = sc.nextLine();
+                    clienteList.add(new PessoaJuridica(nome, telefone, idade, email, endereco, tipo, cnpj));
+                }
+            }
+
+            System.out.println("Deseja digitar mais um cliente: ");
+            sc.skip("\\R?");
+            resposta = sc.nextLine();
+
+        }while (resposta.equalsIgnoreCase("s"));
+
+        for (Cliente cliente : clienteList) {
+            cliente.visualizar();
+        }
     }
 }
